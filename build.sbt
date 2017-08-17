@@ -6,7 +6,7 @@ organization := "com.softwaremill"
 
 version := "0.1.0"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.11"
 
 val gatlingVer = "2.2.5"
 val zeromqVer = "0.4.2"
