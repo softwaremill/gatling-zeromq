@@ -54,7 +54,3 @@ libraryDependencies ++= Seq(
   "io.gatling.highcharts" % "gatling-charts-highcharts" % gatlingVer % "test",
   "io.gatling" % "gatling-test-framework" % gatlingVer % "test"
 )
-
-// Gatling contains scala-library
-assemblyOption in assembly := (assemblyOption in assembly).value
-  .copy(includeScala = false)
