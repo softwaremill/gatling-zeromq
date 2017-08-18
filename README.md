@@ -23,7 +23,7 @@ Before running a scenario, you have to provide host and port to connect to. For 
 
 ## Message patterns
 
-The plugin supports publishing side of PUB-SUB pattern, i.e. an application under load tests uses subscribes to a data coming from ZeroMQ.
+The plugin supports publishing side of PUB-SUB pattern, i.e. an application under load tests subscribes to a data coming from ZeroMQ.
 
 ## Sending data
 
