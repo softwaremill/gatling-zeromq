@@ -13,6 +13,23 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xlint")
 scalafmtOnCompile := true
 scalafmtVersion := "1.1.0"
 
+// publishing
+publishTo := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
+publishArtifact in Test := false
+publishMavenStyle := true
+sonatypeProfileName := "com.softwaremill"
+
+// sbt-release
+releaseCrossBuild := true
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
+releaseIgnoreUntrackedFiles := true
+releaseProcess := GatlingZeromqRelease.steps
+
 scmInfo := Some(
   ScmInfo(url("https://github.com/softwaremill/gatling-zeromq"),
           "scm:git:git@github.com/softwaremill/gatling-zeromq.git"))
