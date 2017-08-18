@@ -1,6 +1,6 @@
 package com.softwaremill.gatling.zeromq
 
-import com.softwaremill.zeromq.request.builder.ZmqRequestBuilder
+import com.softwaremill.gatling.zeromq.request.builder.ZmqRequestBuilder
 import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.session.Expression
 

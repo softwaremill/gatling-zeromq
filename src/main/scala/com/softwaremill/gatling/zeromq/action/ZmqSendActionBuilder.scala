@@ -1,7 +1,7 @@
 package com.softwaremill.gatling.zeromq.action
 
-import com.softwaremill.zeromq.protocol.ZmqComponents
-import com.softwaremill.zeromq.request.builder.ZmqRequestBuilder
+import com.softwaremill.gatling.zeromq.protocol.{ZmqComponents, ZmqProtocol}
+import com.softwaremill.gatling.zeromq.request.builder.ZmqRequestBuilder
 import io.gatling.core.action.Action
 import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.structure.ScenarioContext
