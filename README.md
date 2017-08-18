@@ -6,7 +6,7 @@
 
 ## Goal of the project
 
-The aim of the project is to allow load testing of applications using [ZeroMQ](http://zeromq.org) with a help of [Gatling tool](http://gatling.io).
+The aim of the project is to allow load testing of applications using [ZeroMQ](http://zeromq.org) with the help of the [Gatling tool](http://gatling.io).
 
 ## ZeroMQ connector
 
@@ -23,11 +23,11 @@ Before running a scenario, you have to provide host and port to connect to. For 
 
 ## Message patterns
 
-The plugin supports publishing side of PUB-SUB pattern, i.e. an application under load tests subscribes to a data coming from ZeroMQ.
+The plugin supports the publishing side of the PUB-SUB pattern, i.e. an application under load tests subscribes to data coming from ZeroMQ.
 
 ## Sending data
 
-A sending of a message and a multi-part message is supported:
+Sending of a message and a multi-part message is supported:
 ```
 scenario("Scenario A")
     .exec(
