@@ -1,6 +1,6 @@
-package com.softwaremill.zeromq
+package com.softwaremill.gatling.zeromq
 
-import com.softwaremill.zeromq.protocol.ZmqProtocolBuilder
+import com.softwaremill.gatling.zeromq.protocol.ZmqProtocolBuilder
 import io.gatling.core.config.GatlingConfiguration
 import io.gatling.core.session.Expression
 

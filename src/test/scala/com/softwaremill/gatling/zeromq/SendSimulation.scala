@@ -1,12 +1,12 @@
-package com.softwaremill.zeromq
+package com.softwaremill.gatling.zeromq
 
-import com.softwaremill.zeromq.Predef.{zmq, zmqConfig}
+import com.softwaremill.gatling.zeromq.Predef._
 import io.gatling.core.Predef._
 
 import scala.concurrent.duration._
 import scala.util.Random
 
-class SendMoreSimulation extends Simulation {
+class SendSimulation extends Simulation {
 
   private val companies: List[String] =
     List("AAPL", "FB", "GS", "JPM", "TSL", "TWTR")
@@ -28,8 +28,8 @@ class SendMoreSimulation extends Simulation {
     .feed(feeder)
     .exec(
       zmq("Stock quote")
-        .send("${company}: ${price}")
-    )
+        .sendMore("${company}")
+        .send("${price}"))
     .pause(500 milliseconds, 1 second)
 
   setUp(
@@ -44,4 +44,5 @@ class SendMoreSimulation extends Simulation {
   private def randomPrice = 100 + rnd.nextInt(123)
 
   private def numberOfCompanies = companies.size
+
 }

@@ -1,4 +1,4 @@
-package com.softwaremill.zeromq
+package com.softwaremill.gatling.zeromq
 
 import com.softwaremill.zeromq.request.builder.ZmqRequestBuilder
 import io.gatling.core.action.builder.ActionBuilder

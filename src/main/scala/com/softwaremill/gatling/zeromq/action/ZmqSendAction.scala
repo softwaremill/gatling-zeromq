@@ -1,6 +1,6 @@
-package com.softwaremill.zeromq.action
+package com.softwaremill.gatling.zeromq.action
 
-import com.softwaremill.zeromq.request.builder.ZmqRequest
+import com.softwaremill.gatling.zeromq.request.builder.ZmqRequest
 import io.gatling.commons.stats.{KO, OK}
 import io.gatling.commons.util.ClockSingleton._
 import io.gatling.commons.validation.{Failure, Success, Validation, _}

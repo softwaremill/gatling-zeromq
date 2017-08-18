@@ -1,6 +1,6 @@
-package com.softwaremill.zeromq.action
+package com.softwaremill.gatling.zeromq.action
 
-import com.softwaremill.zeromq.protocol.{ZmqComponents, ZmqProtocol}
+import com.softwaremill.zeromq.protocol.ZmqComponents
 import com.softwaremill.zeromq.request.builder.ZmqRequestBuilder
 import io.gatling.core.action.Action
 import io.gatling.core.action.builder.ActionBuilder

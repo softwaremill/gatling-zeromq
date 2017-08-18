@@ -1,4 +1,4 @@
-package com.softwaremill.zeromq.protocol
+package com.softwaremill.gatling.zeromq.protocol
 
 import io.gatling.core.config.GatlingConfiguration
 
