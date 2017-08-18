@@ -1,5 +1,6 @@
 language: scala
 jdk:
-    - oraclejdk8
+- oraclejdk8
 script: 
-    - sbt assembly
+- sbt ++$TRAVIS_SCALA_VERSION test
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && sbt updateImpactSubmit || true'
