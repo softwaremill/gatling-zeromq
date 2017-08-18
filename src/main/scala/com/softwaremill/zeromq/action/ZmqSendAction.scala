@@ -110,7 +110,7 @@ class ZmqSendAction(val sock: ZMQ.Socket,
       case _: java.lang.Number => sock.sendMore(payload.toString)
       case _ => {
         logger.error(
-          s"Unsupported type of data provided when calling 'sendMore': $payload")
+          s"Unsupported type of data provided: ${payload.getClass.getName}")
         false
       }
     }
@@ -122,9 +122,8 @@ class ZmqSendAction(val sock: ZMQ.Socket,
       case _: String           => sock.send(payload.asInstanceOf[String])
       case _: java.lang.Number => sock.send(payload.toString)
       case _ => {
-        logger.error(payload.getClass.getName)
         logger.error(
-          s"Unsupported type of data provided when calling 'send': $payload")
+          s"Unsupported type of data provided: ${payload.getClass.getName}")
         false
       }
     }
