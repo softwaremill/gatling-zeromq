@@ -28,7 +28,8 @@ class SendMoreSimulation extends Simulation {
     .feed(feeder)
     .exec(
       zmq("Stock quote")
-        .send("${company}: ${price}")
+        .sendMore("${company}")
+        .send("${price}")
     )
     .pause(500 milliseconds, 1 second)
 

@@ -26,10 +26,8 @@ class SendSimulation extends Simulation {
 
   val stockQuotes = scenario("Send stock quotes")
     .feed(feeder)
-    .exec(
-      zmq("Stock quote")
-        .sendMore("${company}")
-        .send("${price}"))
+    .exec(zmq("Stock quote")
+      .send("${company}: ${price}"))
     .pause(500 milliseconds, 1 second)
 
   setUp(
