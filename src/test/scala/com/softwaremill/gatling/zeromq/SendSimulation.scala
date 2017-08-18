@@ -6,6 +6,8 @@ import io.gatling.core.Predef._
 import scala.concurrent.duration._
 import scala.util.Random
 
+import scala.language.postfixOps
+
 class SendSimulation extends Simulation {
 
   private val companies: List[String] =
