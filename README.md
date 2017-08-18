@@ -44,7 +44,7 @@ scenario("Scenario B")
     )
 ```
 
-Types of data can be `String`, Array[Byte], numeric ones and [Gatling's Expression Language strings](http://gatling.io/docs/current/session/expression_el/#el) as well.
+Types of data can be `String`, `Array[Byte]`, numeric ones and [Gatling's Expression Language strings](http://gatling.io/docs/current/session/expression_el/#el) as well.
 
 ## Contributing
 
