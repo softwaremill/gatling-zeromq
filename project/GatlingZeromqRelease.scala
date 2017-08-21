@@ -32,7 +32,7 @@ object GatlingZeromqRelease {
     val readme = IO.read(readmeFile)
 
     val currentVersionPattern =
-      """"com.softwaremill.gatling-zeromq" %% "core" % "([\w\.-]+)"""".r
+      """"com.softwaremill.gatling-zeromq" %% "gatling-zeromq" % "([\w\.-]+)"""".r
     val currentVersionInReadme =
       currentVersionPattern.findFirstMatchIn(readme).get.group(1)
 
