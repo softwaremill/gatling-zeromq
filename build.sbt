@@ -2,7 +2,7 @@ enablePlugins(GatlingPlugin)
 
 name := "gatling-zeromq"
 
-organization := "com.softwaremill"
+organization := "com.softwaremill.gatling-zeromq"
 
 version := "0.1.0-SNAPSHOT"
 
