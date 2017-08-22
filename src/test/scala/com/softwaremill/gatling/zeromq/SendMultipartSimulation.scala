@@ -10,19 +10,14 @@ import scala.language.postfixOps
 
 class SendMultipartSimulation extends Simulation {
 
-  private val companies: List[String] =
-    List("AAPL", "FB", "GS", "JPM", "TSL", "TWTR")
-
-  private val rnd = new Random()
-
   val config = zmqConfig
     .host("localhost")
     .port("8916")
 
   val feeder: Iterator[Map[String, Any]] = Iterator.continually(
     Map(
-      "company" -> randomCompany,
-      "price" -> randomPrice
+      "company" -> companies,
+      "price" -> prices
     )
   )
 
@@ -30,8 +25,8 @@ class SendMultipartSimulation extends Simulation {
     .feed(feeder)
     .exec(
       zmq("Stock quote")
-        .sendMore("${company}")
-        .send("${price}")
+        .sendMore("${company.random()}")
+        .send("${price.random()}")
     )
     .pause(500 milliseconds, 1 second)
 
@@ -42,9 +37,7 @@ class SendMultipartSimulation extends Simulation {
   ).protocols(config)
     .maxDuration(3 seconds)
 
-  private def randomCompany = companies.get(rnd.nextInt(numberOfCompanies))
+  private def companies = List("AAPL", "FB", "GS", "JPM", "TSL", "TWTR")
 
-  private def randomPrice = 100 + rnd.nextInt(123)
-
-  private def numberOfCompanies = companies.size
+  private def prices = (100 until 223).toList
 }
