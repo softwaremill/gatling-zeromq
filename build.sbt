@@ -34,7 +34,7 @@ scmInfo := Some(
 
 developers := List(
   Developer("mchmielarz",
-            "Michał Chmielarz",
+            "Michal Chmielarz",
             "",
             url("https://softwaremill.com")))
 
