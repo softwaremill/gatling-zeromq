@@ -8,6 +8,23 @@
 
 The aim of the project is to allow load testing of applications using [ZeroMQ](http://zeromq.org) with the help of the [Gatling tool](http://gatling.io).
 
+## Adding gatling-zeromq to your project
+
+SBT dependency:
+
+```scala
+"com.softwaremill.gatling-zeromq" %% "gatling-zeromq" % "0.1.0"
+```
+
+Gradle dependency:
+```groovy
+"com.softwaremill.gatling-zeromq:gatling-zeromq_2.11:0.1.0"
+```
+
+`gatling-zeromq` is available for Scala 2.11 and requires Java 8.
+
+You need to add a dependency on Gatling tool to your project since it is not bundled in this library.
+
 ## ZeroMQ connector
 
 The project uses [JeroMQ](https://github.com/zeromq/jeromq) as the ZeroMQ connector.
