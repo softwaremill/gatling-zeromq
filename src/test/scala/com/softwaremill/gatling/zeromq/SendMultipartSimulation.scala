@@ -19,7 +19,7 @@ class SendMultipartSimulation extends Simulation {
     .host("localhost")
     .port("8916")
 
-  val feeder = Iterator.continually(
+  val feeder: Iterator[Map[String, Any]] = Iterator.continually(
     Map(
       "company" -> randomCompany,
       "price" -> randomPrice
