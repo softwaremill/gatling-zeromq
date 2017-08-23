@@ -4,7 +4,6 @@ import com.softwaremill.gatling.zeromq.Predef.{zmq, zmqConfig}
 import io.gatling.core.Predef._
 
 import scala.concurrent.duration._
-import scala.util.Random
 
 import scala.language.postfixOps
 

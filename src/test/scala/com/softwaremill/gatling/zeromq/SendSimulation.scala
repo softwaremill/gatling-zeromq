@@ -4,13 +4,10 @@ import com.softwaremill.gatling.zeromq.Predef._
 import io.gatling.core.Predef._
 
 import scala.concurrent.duration._
-import scala.util.Random
 
 import scala.language.postfixOps
 
 class SendSimulation extends Simulation {
-
-  private val rnd = new Random()
 
   val config = zmqConfig
     .host("localhost")
@@ -26,7 +23,7 @@ class SendSimulation extends Simulation {
   val stockQuotes = scenario("Send stock quotes")
     .feed(feeder)
     .exec(zmq("Stock quote")
-      .send("${company.random()}: ${price.random()}"))
+      .send("${company.random()}: ${price}"))
     .pause(500 milliseconds, 1 second)
 
   setUp(
