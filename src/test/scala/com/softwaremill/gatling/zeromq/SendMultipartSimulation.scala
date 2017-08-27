@@ -1,6 +1,6 @@
 package com.softwaremill.gatling.zeromq
 
-import com.softwaremill.gatling.zeromq.Predef.{zmq, zmqConfig}
+import com.softwaremill.gatling.zeromq.Predef.{zmqPublish, zmqConfig}
 import io.gatling.core.Predef._
 
 import scala.concurrent.duration._
@@ -23,7 +23,7 @@ class SendMultipartSimulation extends Simulation {
   val stockQuotes = scenario("Send stock quotes")
     .feed(feeder)
     .exec(
-      zmq("Stock quote")
+      zmqPublish("Stock quote")
         .sendMore("${company.random()}")
         .send("${price.random()}")
     )

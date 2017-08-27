@@ -39,3 +39,8 @@ case class ZmqProtocol(host: String, port: String) extends Protocol {
   def port(port: String): ZmqProtocol = copy(port = port)
 
 }
+
+object SenderType extends Enumeration {
+  type SenderType = Value
+  val PUB = Value
+}
