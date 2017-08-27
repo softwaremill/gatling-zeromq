@@ -1,6 +1,10 @@
 package com.softwaremill.gatling.zeromq.action
 
-import com.softwaremill.gatling.zeromq.protocol.{ZmqComponents, ZmqProtocol}
+import com.softwaremill.gatling.zeromq.protocol.{
+  SenderType,
+  ZmqComponents,
+  ZmqProtocol
+}
 import com.softwaremill.gatling.zeromq.request.builder.ZmqRequestBuilder
 import io.gatling.core.action.Action
 import io.gatling.core.action.builder.ActionBuilder
@@ -19,7 +23,11 @@ class ZmqSendActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
       protocolComponentsRegistry.components(ZmqProtocol.ZmqProtocolKey)
 
     val zmqCtx = ZMQ.context(ONE_THREAD)
-    val sock = zmqCtx.socket(ZMQ.PUB)
+
+    val sock = zmqRequestBuilder.senderType match {
+      case SenderType.PUB => zmqCtx.socket(ZMQ.PUB)
+      case _              => zmqCtx.socket(ZMQ.PUB)
+    }
 
     val host = zmqComponents.zmqProtocol.host
     val port = zmqComponents.zmqProtocol.port
