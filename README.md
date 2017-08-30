@@ -25,6 +25,15 @@ Gradle dependency:
 
 You need to add a dependency on Gatling tool to your project since it is not bundled in this library.
 
+## Running tests
+
+Tests in the project can be started with:
+```scala
+sbt gatling:test
+```
+
+For more information look at the [Gatling SBT plugin](http://gatling.io/docs/current/extensions/sbt_plugin/)
+
 ## ZeroMQ connector
 
 The project uses [JeroMQ](https://github.com/zeromq/jeromq) as the ZeroMQ connector.
