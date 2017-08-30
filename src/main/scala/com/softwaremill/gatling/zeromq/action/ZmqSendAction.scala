@@ -12,6 +12,7 @@ import io.gatling.core.util.NameGen
 import org.zeromq.ZMQ
 
 import scala.annotation.tailrec
+import scala.util.control.NonFatal
 
 class ZmqSendAction(val sock: ZMQ.Socket,
                     val request: ZmqRequest,
@@ -40,26 +41,29 @@ class ZmqSendAction(val sock: ZMQ.Socket,
       })
   }
 
-  private def sendPayloads(session: Session,
-                           requestName: String): Validation[Unit] = {
-    resolved(request.payloads, session)
-      .map({ p =>
-        {
-          val requestStartDate = nowMillis
-          val isEverythingSent = sendAll(p).foldLeft(true)(_ && _)
-          val requestEndDate = nowMillis
+  private def sendPayloads(session: Session, requestName: String): Unit = {
+    resolved(request.payloads, session) match {
+      case Failure(msg) => {
+        logUnbuildableRequest(session,
+                              requestName,
+                              s"Cannot resolve request payloads: $msg")
+      }
+      case Success(l) => {
+        val requestStartDate = nowMillis
+        val isEverythingSent = sendAll(l).foldLeft(true)(_ && _)
+        val requestEndDate = nowMillis
 
-          logAction(session,
-                    requestName,
-                    isEverythingSent,
-                    requestStartDate,
-                    requestEndDate)
-        }
-      })(session)
+        logAction(session,
+                  requestName,
+                  isEverythingSent,
+                  requestStartDate,
+                  requestEndDate)
+      }
+    }
   }
 
   def resolved(payloads: List[Expression[Any]],
-               session: Session): Expression[List[Any]] = {
+               session: Session): Validation[List[Any]] = {
     @tailrec
     def resolveRec(session: Session,
                    entries: Iterator[Expression[Any]],
@@ -75,8 +79,11 @@ class ZmqSendAction(val sock: ZMQ.Socket,
       }
     }
 
-    (session: Session) =>
-      resolveRec(session, payloads.iterator, Nil)
+    try resolveRec(session, payloads.iterator, Nil)
+    catch {
+      case NonFatal(e) => Failure(e.getMessage)
+    }
+
   }
 
   private def logAction(session: Session,
@@ -93,6 +100,12 @@ class ZmqSendAction(val sock: ZMQ.Socket,
       None,
       if (isEverythingSent) None else Some("Cannot send a request")
     )
+  }
+
+  private def logUnbuildableRequest(session: Session,
+                                    requestName: String,
+                                    errorMessage: String) = {
+    statsEngine.reportUnbuildableRequest(session, requestName, errorMessage)
   }
 
   private def sendAll(payloads: List[Any]): List[Boolean] = {
