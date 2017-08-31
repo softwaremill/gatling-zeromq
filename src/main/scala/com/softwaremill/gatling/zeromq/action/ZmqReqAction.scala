@@ -14,11 +14,11 @@ import org.zeromq.ZMQ
 import scala.annotation.tailrec
 import scala.util.control.NonFatal
 
-class ZmqSendAction(val sock: ZMQ.Socket,
-                    val request: ZmqRequest,
-                    val coreComponents: CoreComponents,
-                    val throttled: Boolean,
-                    val next: Action)
+class ZmqReqAction(val sock: ZMQ.Socket,
+                   val request: ZmqRequest,
+                   val coreComponents: CoreComponents,
+                   val throttled: Boolean,
+                   val next: Action)
     extends ExitableAction
     with NameGen {
 
@@ -51,6 +51,7 @@ class ZmqSendAction(val sock: ZMQ.Socket,
       case Success(l) => {
         val requestStartDate = nowMillis
         val isEverythingSent = sendAll(l).foldLeft(true)(_ && _)
+        if (isEverythingSent) sock.recvStr()
         val requestEndDate = nowMillis
 
         logAction(session,

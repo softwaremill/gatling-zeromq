@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import scala.language.postfixOps
 
-class SendSimulation extends Simulation {
+class PublisherSimulation extends Simulation {
 
   val config = zmqConfig
     .host("localhost")
@@ -22,16 +22,16 @@ class SendSimulation extends Simulation {
 
   val stockQuotes = scenario("Send stock quotes")
     .feed(feeder)
-    .exec(zmqPublish("Stock quote")
+    .exec(zmqPub("Stock quote")
       .send("${company.random()}: ${price.random()}"))
     .pause(500 milliseconds, 1 second)
 
-  setUp(
-    stockQuotes.inject(
-      constantUsersPerSec(10) during (2 seconds)
-    )
-  ).protocols(config)
-    .maxDuration(3 seconds)
+//  setUp(
+//    stockQuotes.inject(
+//      constantUsersPerSec(10) during (2 seconds)
+//    )
+//  ).protocols(config)
+//    .maxDuration(3 seconds)
 
   private def companies = List("AAPL", "FB", "GS", "JPM", "TSL", "TWTR")
 

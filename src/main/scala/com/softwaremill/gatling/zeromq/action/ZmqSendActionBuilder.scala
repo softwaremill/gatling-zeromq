@@ -25,7 +25,7 @@ class ZmqSendActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
     val zmqCtx = ZMQ.context(ONE_THREAD)
 
     val sock = zmqRequestBuilder.senderType match {
-      case SenderType.PUB => zmqCtx.socket(ZMQ.PUB)
+      case SenderType.REQ => zmqCtx.socket(ZMQ.REQ)
       case _              => zmqCtx.socket(ZMQ.PUB)
     }
 
@@ -41,7 +41,12 @@ class ZmqSendActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
 
     val request = zmqRequestBuilder.build()
 
-    new ZmqSendAction(sock, request, coreComponents, throttled, next)
+    zmqRequestBuilder.senderType match {
+      case SenderType.REQ =>
+        new ZmqReqAction(sock, request, coreComponents, throttled, next)
+      case _ =>
+        new ZmqPubAction(sock, request, coreComponents, throttled, next)
+    }
   }
 
 }

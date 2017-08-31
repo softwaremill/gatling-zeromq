@@ -9,7 +9,10 @@ object Predef {
   def zmqConfig(implicit configuration: GatlingConfiguration) =
     ZmqProtocolBuilder(configuration)
 
-  def zmqPublish(requestName: Expression[String]) =
+  def zmqPub(requestName: Expression[String]) =
     new Zmq(requestName, SenderType.PUB)
+
+  def zmqReq(requestName: Expression[String]) =
+    new Zmq(requestName, SenderType.REQ)
 
 }
