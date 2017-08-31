@@ -26,7 +26,9 @@ abstract class ZmqAction(val sock: ZMQ.Socket,
 
   override val name: String = genName("zmqRequest")
 
-  protected def doSend(payloads: List[Any]): Boolean
+  protected def doSend(session: Session,
+                       requestName: String,
+                       payloads: List[Any]): Boolean
 
   override def execute(session: Session): Unit = recover(session) {
     request
@@ -52,7 +54,7 @@ abstract class ZmqAction(val sock: ZMQ.Socket,
       }
       case Success(payloads) => {
         val requestStartDate = nowMillis
-        val isEverythingSent = doSend(payloads)
+        val isEverythingSent = doSend(session, requestName, payloads)
         val requestEndDate = nowMillis
 
         logAction(session,

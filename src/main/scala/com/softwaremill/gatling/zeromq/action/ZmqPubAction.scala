@@ -3,6 +3,7 @@ package com.softwaremill.gatling.zeromq.action
 import com.softwaremill.gatling.zeromq.request.builder.ZmqRequest
 import io.gatling.core.CoreComponents
 import io.gatling.core.action.Action
+import io.gatling.core.session.Session
 import org.zeromq.ZMQ
 
 class ZmqPubAction(sock: ZMQ.Socket,
@@ -14,12 +15,10 @@ class ZmqPubAction(sock: ZMQ.Socket,
 
   override val name: String = genName("zmqPub")
 
-  override protected def doSend(payloads: List[Any]): Boolean = {
-    val isEverythingSent = sendAll(payloads).foldLeft(true)(_ && _)
-    isEverythingSent
+  override protected def doSend(session: Session,
+                                requestName: String,
+                                payloads: List[Any]): Boolean = {
+    sendAll(payloads).forall(_)
   }
 
 }
-
-//        val isEverythingSent = sendAll(l).foldLeft(true)(_ && _)
-//if (isEverythingSent) sock.recvStr ()
