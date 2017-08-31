@@ -50,9 +50,9 @@ abstract class ZmqAction(val sock: ZMQ.Socket,
                               requestName,
                               s"Cannot resolve request payloads: $msg")
       }
-      case Success(l) => {
+      case Success(payloads) => {
         val requestStartDate = nowMillis
-        val isEverythingSent = doSend(l)
+        val isEverythingSent = doSend(payloads)
         val requestEndDate = nowMillis
 
         logAction(session,
