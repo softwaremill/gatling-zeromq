@@ -11,7 +11,7 @@ import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.structure.ScenarioContext
 import org.zeromq.ZMQ
 
-class ZmqSendActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
+class ZmqActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
     extends ActionBuilder {
 
   val ONE_THREAD = 1
