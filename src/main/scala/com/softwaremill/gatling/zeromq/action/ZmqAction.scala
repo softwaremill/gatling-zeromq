@@ -28,7 +28,9 @@ abstract class ZmqAction(val sock: ZMQ.Socket,
 
   protected def doSend(session: Session,
                        requestName: String,
-                       payloads: List[Any]): Boolean
+                       payloads: List[Any]): Boolean = {
+    sendAll(payloads).forall(_.booleanValue())
+  }
 
   override def execute(session: Session): Unit = recover(session) {
     request
