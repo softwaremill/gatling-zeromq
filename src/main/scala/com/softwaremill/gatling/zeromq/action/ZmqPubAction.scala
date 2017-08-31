@@ -18,7 +18,7 @@ class ZmqPubAction(sock: ZMQ.Socket,
   override protected def doSend(session: Session,
                                 requestName: String,
                                 payloads: List[Any]): Boolean = {
-    sendAll(payloads).forall(_)
+    sendAll(payloads).forall(_.booleanValue())
   }
 
 }
