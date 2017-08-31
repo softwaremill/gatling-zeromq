@@ -26,7 +26,7 @@ class MultipartRequestSimulation extends Simulation {
 
   val config = zmqConfig
     .host("localhost")
-    .port(port.toString)
+    .port(port)
 
   val feeder: Iterator[Map[String, Any]] = Iterator.continually(
     Map(

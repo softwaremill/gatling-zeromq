@@ -11,7 +11,7 @@ class PublisherSimulation extends Simulation {
 
   val config = zmqConfig
     .host("localhost")
-    .port("8916")
+    .port(8916)
 
   val feeder: Iterator[Map[String, Any]] = Iterator.continually(
     Map(

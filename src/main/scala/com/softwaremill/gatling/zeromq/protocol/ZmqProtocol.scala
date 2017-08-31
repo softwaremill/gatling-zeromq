@@ -33,10 +33,10 @@ object ZmqProtocol {
   }
 }
 
-case class ZmqProtocol(host: String, port: String) extends Protocol {
+case class ZmqProtocol(host: String, port: Int) extends Protocol {
 
   def host(host: String): ZmqProtocol = copy(host = host)
-  def port(port: String): ZmqProtocol = copy(port = port)
+  def port(port: Int): ZmqProtocol = copy(port = port)
 
 }
 
