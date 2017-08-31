@@ -32,7 +32,7 @@ Tests in the project can be started with:
 sbt gatling:test
 ```
 
-For more information look at the [Gatling SBT plugin](http://gatling.io/docs/current/extensions/sbt_plugin/)
+For more information look at the [Gatling SBT plugin](http://gatling.io/docs/current/extensions/sbt_plugin/).
 
 ## ZeroMQ connector
 
