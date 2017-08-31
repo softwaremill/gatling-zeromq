@@ -49,7 +49,9 @@ Before running a scenario, you have to provide host and port to connect to. For 
 
 ## Message patterns
 
-The plugin supports the publishing side of the PUB-SUB pattern, i.e. an application under load tests subscribes to data coming from ZeroMQ.
+The plugin supports:
+* the publishing side of the PUB-SUB pattern (`zmqPub("...")`),
+* and the requesting side of the REQ-REP pattern (`zmqReq("...")`).
 
 ## Sending data
 
@@ -57,13 +59,13 @@ Sending of a message and a multi-part message is supported:
 ```
 scenario("Scenario A")
     .exec(
-        zmq("a request")
+        zmqPub("a request")
             .send("a message")
     )
 
 scenario("Scenario B")
     .exec(
-        zmq("a request")
+        zmqPub("a request")
             .sendMore("a multi")
             .sendMore("part")
             .send("message")
