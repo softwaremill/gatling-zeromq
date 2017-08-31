@@ -9,7 +9,7 @@ import io.gatling.core.action.{Action, ExitableAction}
 import io.gatling.core.session.{Session, _}
 import io.gatling.core.stats.message.ResponseTimings
 import io.gatling.core.util.NameGen
-import org.zeromq.ZMQ
+import org.zeromq.{ZMQ, ZMQException}
 
 import scala.annotation.tailrec
 import scala.util.control.NonFatal
@@ -53,15 +53,22 @@ abstract class ZmqAction(val sock: ZMQ.Socket,
                               s"Cannot resolve request payloads: $msg")
       }
       case Success(payloads) => {
-        val requestStartDate = nowMillis
-        val isEverythingSent = doSend(session, requestName, payloads)
-        val requestEndDate = nowMillis
+        try {
+          val requestStartDate = nowMillis
+          val isEverythingSent = doSend(session, requestName, payloads)
+          val requestEndDate = nowMillis
 
-        logAction(session,
-                  requestName,
-                  isEverythingSent,
-                  requestStartDate,
-                  requestEndDate)
+          logAction(session,
+                    requestName,
+                    isEverythingSent,
+                    requestStartDate,
+                    requestEndDate)
+        } catch {
+          case zmqe: ZMQException =>
+            logError(session,
+                     requestName,
+                     s"${zmqe.getMessage}: ${zmqe.getErrorCode}")
+        }
       }
     }
   }
@@ -110,6 +117,12 @@ abstract class ZmqAction(val sock: ZMQ.Socket,
                                     requestName: String,
                                     errorMessage: String) = {
     statsEngine.reportUnbuildableRequest(session, requestName, errorMessage)
+  }
+
+  protected def logError(session: Session,
+                         requestName: String,
+                         errorMessage: String) = {
+    statsEngine.logCrash(session, requestName, errorMessage)
   }
 
   protected def sendAll(payloads: List[Any]): List[Boolean] = {
