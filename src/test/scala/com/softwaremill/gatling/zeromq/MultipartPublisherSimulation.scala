@@ -29,12 +29,12 @@ class MultipartPublisherSimulation extends Simulation {
     )
     .pause(500 milliseconds, 1 second)
 
-//  setUp(
-//    stockQuotes.inject(
-//      constantUsersPerSec(10) during (2 seconds)
-//    )
-//  ).protocols(config)
-//    .maxDuration(3 seconds)
+  setUp(
+    stockQuotes.inject(
+      constantUsersPerSec(10) during (2 seconds)
+    )
+  ).protocols(config)
+    .maxDuration(3 seconds)
 
   private def companies = List("AAPL", "FB", "GS", "JPM", "TSL", "TWTR")
 
