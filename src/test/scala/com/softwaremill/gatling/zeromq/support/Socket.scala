@@ -15,7 +15,9 @@ class Socket(val port: Int, val socketType: Int, val msgCount: Int = 1)
       while ({
         !Thread.currentThread.isInterrupted
       }) {
-        val request = (1 to msgCount).map(_ => repSock.recvStr()).mkString(" ")
+        val request = (1 to msgCount)
+          .map(_ => repSock.recvStr())
+          .mkString(" ")
         repSock.send(s"$request ack".getBytes, 0)
       }
     } finally {
