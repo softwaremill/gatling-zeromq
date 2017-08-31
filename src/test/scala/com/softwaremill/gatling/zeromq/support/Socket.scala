@@ -10,7 +10,7 @@ class Socket(val port: Int, val socketType: Int, val msgCount: Int = 1)
     val repSock = zmqCtx.socket(socketType)
 
     try {
-      repSock.bind(s"tcp://*:$port")
+      repSock.bind(s"tcp://localhost:$port")
 
       while ({
         !Thread.currentThread.isInterrupted
