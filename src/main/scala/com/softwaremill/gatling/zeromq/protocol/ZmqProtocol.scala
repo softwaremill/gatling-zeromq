@@ -9,7 +9,7 @@ object ZmqProtocol {
 
   def apply(configuration: GatlingConfiguration): ZmqProtocol = ZmqProtocol(
     host = "localhost",
-    port = ""
+    port = 0
   )
 
   val ZmqProtocolKey = new ProtocolKey {
