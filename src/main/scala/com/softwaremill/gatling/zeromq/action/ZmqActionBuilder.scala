@@ -1,13 +1,17 @@
 package com.softwaremill.gatling.zeromq.action
 
-import com.softwaremill.gatling.zeromq.protocol.{ZmqComponents, ZmqProtocol}
+import com.softwaremill.gatling.zeromq.protocol.{
+  SenderType,
+  ZmqComponents,
+  ZmqProtocol
+}
 import com.softwaremill.gatling.zeromq.request.builder.ZmqRequestBuilder
 import io.gatling.core.action.Action
 import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.structure.ScenarioContext
 import org.zeromq.ZMQ
 
-class ZmqSendActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
+class ZmqActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
     extends ActionBuilder {
 
   val ONE_THREAD = 1
@@ -19,7 +23,11 @@ class ZmqSendActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
       protocolComponentsRegistry.components(ZmqProtocol.ZmqProtocolKey)
 
     val zmqCtx = ZMQ.context(ONE_THREAD)
-    val sock = zmqCtx.socket(ZMQ.PUB)
+
+    val sock = zmqRequestBuilder.senderType match {
+      case SenderType.REQ => zmqCtx.socket(ZMQ.REQ)
+      case _              => zmqCtx.socket(ZMQ.PUB)
+    }
 
     val host = zmqComponents.zmqProtocol.host
     val port = zmqComponents.zmqProtocol.port
@@ -33,7 +41,12 @@ class ZmqSendActionBuilder(val zmqRequestBuilder: ZmqRequestBuilder)
 
     val request = zmqRequestBuilder.build()
 
-    new ZmqSendAction(sock, request, coreComponents, throttled, next)
+    zmqRequestBuilder.senderType match {
+      case SenderType.REQ =>
+        new ZmqReqAction(sock, request, coreComponents, throttled, next)
+      case _ =>
+        new ZmqPubAction(sock, request, coreComponents, throttled, next)
+    }
   }
 
 }

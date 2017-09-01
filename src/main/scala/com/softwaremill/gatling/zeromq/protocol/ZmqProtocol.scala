@@ -9,7 +9,7 @@ object ZmqProtocol {
 
   def apply(configuration: GatlingConfiguration): ZmqProtocol = ZmqProtocol(
     host = "localhost",
-    port = ""
+    port = 0
   )
 
   val ZmqProtocolKey = new ProtocolKey {
@@ -33,9 +33,14 @@ object ZmqProtocol {
   }
 }
 
-case class ZmqProtocol(host: String, port: String) extends Protocol {
+case class ZmqProtocol(host: String, port: Int) extends Protocol {
 
   def host(host: String): ZmqProtocol = copy(host = host)
-  def port(port: String): ZmqProtocol = copy(port = port)
+  def port(port: Int): ZmqProtocol = copy(port = port)
 
+}
+
+object SenderType extends Enumeration {
+  type SenderType = Value
+  val PUB, REQ = Value
 }
