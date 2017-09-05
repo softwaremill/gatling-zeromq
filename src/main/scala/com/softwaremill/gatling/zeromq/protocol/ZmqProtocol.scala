@@ -42,5 +42,5 @@ case class ZmqProtocol(host: String, port: Int) extends Protocol {
 
 object SenderType extends Enumeration {
   type SenderType = Value
-  val PUB, REQ = Value
+  val PUB, REQ, PUSH = Value
 }
