@@ -15,4 +15,7 @@ object Predef {
   def zmqReq(requestName: Expression[String]) =
     new Zmq(requestName, SenderType.REQ)
 
+  def zmqPush(requestName: Expression[String]) =
+    new Zmq(requestName, SenderType.PUSH)
+
 }
