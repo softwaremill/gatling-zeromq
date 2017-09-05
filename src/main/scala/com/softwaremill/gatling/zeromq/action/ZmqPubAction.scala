@@ -3,7 +3,6 @@ package com.softwaremill.gatling.zeromq.action
 import com.softwaremill.gatling.zeromq.request.builder.ZmqRequest
 import io.gatling.core.CoreComponents
 import io.gatling.core.action.Action
-import io.gatling.core.session.Session
 import org.zeromq.ZMQ
 
 class ZmqPubAction(sock: ZMQ.Socket,
