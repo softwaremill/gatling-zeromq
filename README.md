@@ -51,7 +51,8 @@ Before running a scenario, you have to provide host and port to connect to. For 
 
 The plugin supports:
 * the publishing side of the PUB-SUB pattern (`zmqPub("...")`),
-* and the requesting side of the REQ-REP pattern (`zmqReq("...")`).
+* the requesting side of the REQ-REP pattern (`zmqReq("...")`),
+* and the pushing side of the PUSH-PULL pattern (`zmqPush("...")`),
 
 ## Sending data
 
